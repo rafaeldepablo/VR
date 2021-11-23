@@ -55,7 +55,7 @@
   </label>
 </div>
 <div class="p-3 mb-2 bg-secondary" id="demo-div">
-<a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
+<a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Comenzar captura</a>
 <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
 
 
@@ -179,7 +179,7 @@ demo_button.onclick = function(e) {
   if (is_running){
     window.removeEventListener("devicemotion", handleMotion);
     window.removeEventListener("deviceorientation", handleOrientation);
-    demo_button.innerHTML = "Start demo";
+    demo_button.innerHTML = "Comenzar captura";
     demo_button.classList.add('btn-success');
     demo_button.classList.remove('btn-danger');
 
@@ -228,7 +228,7 @@ headers: {
   }else{
     window.addEventListener("devicemotion", handleMotion);
     window.addEventListener("deviceorientation", handleOrientation);
-    document.getElementById("start_demo").innerHTML = "Stop demo";
+    document.getElementById("start_demo").innerHTML = "Enviar Captura";
     demo_button.classList.remove('btn-success');
     demo_button.classList.add('btn-danger');
     is_running = true;
