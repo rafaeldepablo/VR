@@ -20,16 +20,39 @@
 <main role="main" class="container">
 
 <h1 align="left">JavaScript Sensor Access Demo</h1>
+  <h3>Movimiento a capturar</h3>
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-  <label class="form-check-label" for="flexRadioDefault1">
-    Default radio
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_1">
+  <label class="form-check-label" for="typeMovement_1">
+    Alejar móvil
   </label>
 </div>
+  
 <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-  <label class="form-check-label" for="flexRadioDefault2">
-    Default checked radio
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_2">
+  <label class="form-check-label" for="typeMovement_2">
+    Acercar móvil
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_3">
+  <label class="form-check-label" for="typeMovement_3">
+    Mover a la izquierda móvil
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_3">
+  <label class="form-check-label" for="typeMovement_4">
+    Mover a la derecha móvil
+  </label>
+</div>
+  
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_5" checked>
+  <label class="form-check-label" for="typeMovement_5">
+    Sostener el movil
   </label>
 </div>
 <div class="p-3 mb-2 bg-secondary" id="demo-div">
@@ -147,6 +170,9 @@ demo_button.onclick = function(e) {
 
     //alert(datapoints_motion)
     //alert(datapoints_orient)
+    
+    let typeMovement = Array.from(document.getElementsByName("typeMovement")).find(r => r.checked).id;
+    alert(typeMovement)
     datapoints_motion_str = ''
     datapoints_orient_str = ''
     for (var i=0; i < datapoints_motion.length;i++) {
@@ -157,9 +183,8 @@ demo_button.onclick = function(e) {
       datapoints_orient_str += datapoints_orient[i].join() + ";";
     }
     
-    console.log(datapoints_motion_str)
-    console.log(datapoints_orient_str)
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion&datas='+datapoints_motion_str, {
+    
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '&datas='+datapoints_motion_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
@@ -170,7 +195,7 @@ headers: {
   alert('Hubo un problema con la petición Fetch Motion:' + error.message);
 });
 
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient&datas='+datapoints_orient_str, {
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient_' typeMovement + '&datas='+datapoints_orient_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
