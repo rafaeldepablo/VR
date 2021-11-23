@@ -83,7 +83,7 @@ function handleOrientation(event) {
   updateFieldIfNotNull('Orientation_g', event.gamma);
 
   timestamp = event.timeStamp + performance.timing.navigationStart
-  datapoints_motion.push([timestamp,event.alpha,event.beta,event.gamma]);
+  datapoints_orient.push([timestamp,event.alpha,event.beta,event.gamma]);
   incrementEventCount();
 }
 
@@ -114,7 +114,7 @@ function handleMotion(event) {
   updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
 
   timestamp = event.timeStamp + performance.timing.navigationStart
-  datapoints_orient.push([timestamp,event.accelerationIncludingGravity.x,event.accelerationIncludingGravity.y,event.accelerationIncludingGravity.z])
+  datapoints_motion.push([timestamp,event.accelerationIncludingGravity.x,event.accelerationIncludingGravity.y,event.accelerationIncludingGravity.z])
   incrementEventCount();
 }
 
@@ -141,25 +141,37 @@ demo_button.onclick = function(e) {
     //alert(datapoints_motion)
     //alert(datapoints_orient)
     datapoints_motion_str = ''
+    datapoints_orient_str = ''
     for (var i=0; i < datapoints_motion.length;i++) {
       datapoints_motion_str += datapoints_motion[i].join() + ";";
     }
+    
+    for (var i=0; i < datapoints_orient.length;i++) {
+      datapoints_orient_str += datapoints_orient[i].join() + ";";
+    }
+    
     console.log(datapoints_motion_str)
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=simple_server&datas='+datapoints_motion_str, {
+    console.log(datapoints_orient_str)
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion&datas='+datapoints_motion_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
 }
-}).then(function(response) {
-  if(response.ok) {
-    alert(response)
-  } else {
-    alert('Respuesta de red OK pero respuesta HTTP no OK: ',response.ok);
-  }
 })
 .catch(function(error) {
-  alert('Hubo un problema con la petición Fetch:' + error.message);
+  alert('Hubo un problema con la petición Fetch Motion:' + error.message);
+});
+
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient&datas='+datapoints_orient_str, {
+      mode: 'no-cors',
+      cache: 'no-cache',
+headers: {
+'accept': '*/*'
+}
+})
+.catch(function(error) {
+  alert('Hubo un problema con la petición Fetch Orient:' + error.message);
 });
 
     datapoints_motion = []
