@@ -114,7 +114,9 @@ function handleMotion(event) {
   updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
 
   timestamp = event.timeStamp + performance.timing.navigationStart
-  datapoints_motion.push([timestamp,event.accelerationIncludingGravity.x,event.accelerationIncludingGravity.y,event.accelerationIncludingGravity.z])
+  datapoints_motion.push([timestamp,event.accelerationIncludingGravity.x,event.accelerationIncludingGravity.y,event.accelerationIncludingGravity.z,
+                         event.acceleration.x,event.acceleration.y,event.acceleration.z,
+                         event.rotationRate.alpha,event.rotationRate.beta,event.rotationRate.gamma])
   incrementEventCount();
 }
 
