@@ -105,6 +105,22 @@ var datapoints_motion = [];
 var datapoints_orient = [];
 
 
+function generateUUID() { // Public Domain/MIT
+    var d = new Date().getTime();//Timestamp
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16;//random number between 0 and 16
+        if(d > 0){//Use timestamp until depleted
+            r = (d + r)%16 | 0;
+            d = Math.floor(d/16);
+        } else {//Use microseconds since page-load if supported
+            r = (d2 + r)%16 | 0;
+            d2 = Math.floor(d2/16);
+        }
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+}
+  
 function handleOrientation(event) {
   updateFieldIfNotNull('Orientation_a', event.alpha);
   updateFieldIfNotNull('Orientation_b', event.beta);
@@ -172,7 +188,7 @@ demo_button.onclick = function(e) {
     //alert(datapoints_orient)
     
     let typeMovement = Array.from(document.getElementsByName("typeMovement")).find(r => r.checked).id;
-    alert(typeMovement)
+    uuid = generateUUID();
     datapoints_motion_str = ''
     datapoints_orient_str = ''
     for (var i=0; i < datapoints_motion.length;i++) {
@@ -184,7 +200,7 @@ demo_button.onclick = function(e) {
     }
     
     
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '&datas='+datapoints_motion_str, {
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
@@ -195,7 +211,7 @@ headers: {
   alert('Hubo un problema con la petición Fetch Motion:' + error.message);
 });
 
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '&datas='+datapoints_orient_str, {
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
