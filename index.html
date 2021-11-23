@@ -146,7 +146,7 @@ demo_button.onclick = function(e) {
     }
     console.log(datapoints_motion_str)
     fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=simple_server&datas='+datapoints_motion_str, {
-      mode: 'cors',
+      mode: 'no-cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
