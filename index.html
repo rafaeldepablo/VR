@@ -138,11 +138,28 @@ demo_button.onclick = function(e) {
     demo_button.classList.add('btn-success');
     demo_button.classList.remove('btn-danger');
 
-    alert(datapoints_motion)
-    alert(datapoints_orient)
+    //alert(datapoints_motion)
+    //alert(datapoints_orient)
 
     datapoints_motion = []
     datapoints_orient = []
+
+    fetch('http://3.250.77.189:8000/transactions/movements/process_events_mobile/?event=simple_server&datas=123133113,1.2,2.4,2.3;13131311,1.1,2.2,2.5', {
+      mode: 'cors',
+      cache: 'no-cache',
+headers: {
+'accept': '*/*'
+}
+}).then(function(response) {
+  if(response.ok) {
+    alert(response)
+  } else {
+    alert('Respuesta de red OK pero respuesta HTTP no OK');
+  }
+})
+.catch(function(error) {
+  alert('Hubo un problema con la petición Fetch:' + error.message);
+});
 
     is_running = false;
   }else{
