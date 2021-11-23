@@ -140,12 +140,13 @@ demo_button.onclick = function(e) {
 
     //alert(datapoints_motion)
     //alert(datapoints_orient)
-
-    datapoints_motion = []
-    datapoints_orient = []
-    
-    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=simple_server&datas=123133113,1.2,2.4,2.3;13131311,1.1,2.2,2.5', {
-      mode: 'no-cors',
+    datapoints_motion_str = ''
+    for (var i=0; i < datapoints_motion.length;i++) {
+      datapoints_motion_str += datapoints_motion[i].join() + ";";
+    }
+    console.log(datapoints_motion_str)
+    fetch('https://211e-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=simple_server&datas='+datapoints_motion_str, {
+      mode: 'cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
@@ -154,13 +155,16 @@ headers: {
   if(response.ok) {
     alert(response)
   } else {
-    alert('Respuesta de red OK pero respuesta HTTP no OK');
+    alert('Respuesta de red OK pero respuesta HTTP no OK: ',response.ok);
   }
 })
 .catch(function(error) {
   alert('Hubo un problema con la petición Fetch:' + error.message);
 });
 
+    datapoints_motion = []
+    datapoints_orient = []
+    
     is_running = false;
   }else{
     window.addEventListener("devicemotion", handleMotion);
