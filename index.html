@@ -18,7 +18,7 @@
 <body>
 <main role="main" class="container">
 
-<h1 align="left">Captura de la información de sensores del movil 1.2</h1>
+<h1 align="left">Captura de la información de sensores del movil 1.21</h1>
   <h3>Movimiento a capturar</h3>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_1">
@@ -211,7 +211,7 @@ demo_button.onclick = function(e) {
     var url = path + '/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str 
     
     fetch(path + '/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
-      mode: 'cors',
+      mode: 'no-cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
@@ -223,7 +223,7 @@ headers: {
     
     
     fetch(url, {
-      mode: 'cors',
+      mode: 'no-cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
