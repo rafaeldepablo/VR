@@ -207,8 +207,9 @@ demo_button.onclick = function(e) {
     }
     
     const path = 'https://e9a7-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io'
-    fetch(path + '/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str, {
-      mode: 'no-cors',
+    var url = path + '/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str 
+    fetch(url, {
+      mode: 'cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
@@ -216,10 +217,11 @@ headers: {
 })
 .catch(function(error) {
   alert('Hubo un problema con la petición Fetch Motion:' + error.message);
+  alert(url)
 });
 
     fetch(path + '/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
-      mode: 'no-cors',
+      mode: 'cors',
       cache: 'no-cache',
 headers: {
 'accept': '*/*'
