@@ -207,7 +207,21 @@ demo_button.onclick = function(e) {
     }
     
     const path = 'https://e9a7-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io'
+   
     var url = path + '/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str 
+    
+    fetch(path + '/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
+      mode: 'cors',
+      cache: 'no-cache',
+headers: {
+'accept': '*/*'
+}
+})
+.catch(function(error) {
+  alert('Hubo un problema con la petición Fetch Orient:' + error.message);
+});
+    
+    
     fetch(url, {
       mode: 'cors',
       cache: 'no-cache',
@@ -220,16 +234,7 @@ headers: {
   alert(url)
 });
 
-    fetch(path + '/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
-      mode: 'cors',
-      cache: 'no-cache',
-headers: {
-'accept': '*/*'
-}
-})
-.catch(function(error) {
-  alert('Hubo un problema con la petición Fetch Orient:' + error.message);
-});
+
 
     datapoints_motion = []
     datapoints_orient = []
