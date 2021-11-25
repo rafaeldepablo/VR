@@ -51,9 +51,17 @@
 <div class="form-check">
   <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_5" checked>
   <label class="form-check-label" for="typeMovement_5">
+    Agitar el movil
+  </label>
+</div>
+  
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="typeMovement" id="typeMovement_6" checked>
+  <label class="form-check-label" for="typeMovement_6">
     Sostener el movil
   </label>
 </div>
+  
 <div class="p-3 mb-2 bg-secondary" id="demo-div">
 <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Comenzar captura</a>
 <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
@@ -198,8 +206,8 @@ demo_button.onclick = function(e) {
       datapoints_orient_str += datapoints_orient[i].join() + ";";
     }
     
-    
-    fetch('https://b890-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str, {
+    const path = 'https://e9a7-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io'
+    fetch(path + '/transactions/movements/process_events_mobile/?event=motion_' + typeMovement + '.' + uuid + '&datas='+datapoints_motion_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
@@ -210,7 +218,7 @@ headers: {
   alert('Hubo un problema con la petición Fetch Motion:' + error.message);
 });
 
-    fetch('https://b890-2a05-d018-60d-e900-e27-86e7-9cb3-8c3b.ngrok.io/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
+    fetch(path + '/transactions/movements/process_events_mobile/?event=orient_' + typeMovement + '.' + uuid + '&datas='+datapoints_orient_str, {
       mode: 'no-cors',
       cache: 'no-cache',
 headers: {
